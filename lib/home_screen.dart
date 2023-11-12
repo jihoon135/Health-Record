@@ -21,7 +21,10 @@ class _Home_ScreenState extends State<Home_Screen> {
         child: Scaffold(
           appBar: AppBar(
             backgroundColor: Colors.black,
-            title: const Text('오완근'),
+            title: const Padding(
+              padding: EdgeInsets.only(left: 35.0),
+              child: Center(child: Text('Routine Mate')),
+            ),
             actions: <Widget>[
               IconButton(
                 icon: const Icon(Icons.person),

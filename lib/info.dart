@@ -10,6 +10,11 @@ class Info extends StatefulWidget {
 class _InfoState extends State<Info> {
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp();
+    return const MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: Scaffold(
+        body: Center(child: Text("ㅎㅇ")),
+      ),
+    );
   }
 }
