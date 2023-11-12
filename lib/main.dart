@@ -1,6 +1,7 @@
 //이 파일에서 처음 앱이 시작되며 각 routes를 설정
 import 'package:flutter/material.dart';
 import 'package:health_record/home_screen.dart';
+import 'package:health_record/info.dart';
 import 'package:health_record/splash_screen.dart';
 import 'package:health_record/login.dart';
 import 'package:health_record/join.dart';
@@ -30,6 +31,7 @@ class Route_management extends StatelessWidget {
         '/login': (context) => const login(),
         '/join': (context) => const join(),
         '/home_screen': (context) => const Home_Screen(),
+        '/info': (context) => const Info(),
       },
     );
   }
