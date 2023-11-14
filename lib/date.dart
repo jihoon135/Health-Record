@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:table_calendar/table_calendar.dart';
 
 class Date extends StatefulWidget {
-  const Date({Key? key}) : super(key: key);
+  const Date({super.key});
 
   @override
   _DateState createState() => _DateState();
@@ -18,7 +18,7 @@ class _DateState extends State<Date> {
     return Scaffold(
       body: SingleChildScrollView(
         child: Padding(
-          padding: const EdgeInsets.only(top: 50.0),
+          padding: const EdgeInsets.only(top: 100.0),
           child: TableCalendar(
             calendarFormat: _calendarFormat,
             focusedDay: _focusedDay,

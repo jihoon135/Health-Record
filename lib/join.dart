@@ -9,7 +9,7 @@ void main() {
 }
 
 class join extends StatefulWidget {
-  const join({Key? key}) : super(key: key);
+  const join({super.key});
   @override
   State<StatefulWidget> createState() {
     return join_state();
@@ -56,6 +56,12 @@ class join_state extends State<join> {
                     hintText: '이름',
                     obscureText: false,
                     keyboardType: TextInputType.name,
+                    prefixIcon: const Icon(
+                      Icons.person,
+                    ),
+                  ),
+                  SizedBox(
+                    height: (MediaQuery.sizeOf(context)).height / 50,
                   ),
                   Text_Field(
                     controller: _controller2,
@@ -63,13 +69,24 @@ class join_state extends State<join> {
                     hintText: '휴대폰 번호',
                     obscureText: false,
                     keyboardType: TextInputType.number,
+                    prefixIcon: const Icon(
+                      Icons.phone_iphone,
+                    ),
+                  ),
+                  SizedBox(
+                    height: (MediaQuery.sizeOf(context)).height / 50,
                   ),
                   Text_Field(
-                    controller: _controller3,
-                    labelText: 'E-mail 입력하세요.',
-                    hintText: 'E-mail',
-                    obscureText: false,
-                    keyboardType: TextInputType.emailAddress,
+                      controller: _controller3,
+                      labelText: 'E-mail 입력하세요.',
+                      hintText: 'E-mail',
+                      obscureText: false,
+                      keyboardType: TextInputType.emailAddress,
+                      prefixIcon: const Icon(
+                        Icons.email_outlined,
+                      )),
+                  SizedBox(
+                    height: (MediaQuery.sizeOf(context)).height / 50,
                   ),
                   Text_Field(
                     controller: _controller4,
@@ -77,6 +94,12 @@ class join_state extends State<join> {
                     hintText: '비밀번호',
                     obscureText: true,
                     keyboardType: TextInputType.text,
+                    prefixIcon: const Icon(
+                      Icons.lock,
+                    ),
+                  ),
+                  SizedBox(
+                    height: (MediaQuery.sizeOf(context)).height / 50,
                   ),
                   Text_Field(
                     controller: _controller5,
@@ -84,6 +107,9 @@ class join_state extends State<join> {
                     hintText: '비밀번호',
                     obscureText: true,
                     keyboardType: TextInputType.text,
+                    prefixIcon: const Icon(
+                      Icons.lock,
+                    ),
                   ),
                   SizedBox(
                     height: (MediaQuery.sizeOf(context)).height / 10,
