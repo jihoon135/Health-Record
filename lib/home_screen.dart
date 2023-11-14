@@ -38,8 +38,14 @@ class _Home_ScreenState extends State<Home_Screen> {
               ),
             ],
           ),
-          body: const TabBarView(
-            children: [Search_Map(), Health_Routine(), Date()],
+          body: TabBarView(
+            children: [
+              const Search_Map(),
+              Health_Routine(
+                cartItems1: const [],
+              ),
+              const Date()
+            ],
           ),
           extendBodyBehindAppBar: true, // add this line
 
