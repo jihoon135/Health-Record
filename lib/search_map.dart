@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_config/flutter_config.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
+
 import 'package:health_record/login.dart';
 import 'package:health_record/test.dart';
-import 'package:kakao_map_plugin/kakao_map_plugin.dart';
+
 import 'package:health_record/test.dart';
 
 void main() async {
