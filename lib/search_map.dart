@@ -6,10 +6,10 @@ import 'package:health_record/login.dart';
 import 'package:health_record/test.dart';
 
 import 'package:health_record/test.dart';
+import 'package:kakao_map_plugin/kakao_map_plugin.dart';
 import 'package:rive/rive.dart';
 
 void main() async {
-  AuthRepository.initialize(appKey: '81520bbb8c9da2659d9d0fc887dbfefd');
   runApp(const Search_Map());
 }
 
