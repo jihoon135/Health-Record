@@ -1,11 +1,12 @@
 //로그인 창 화면이다
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:health_record/home_screen.dart';
-import 'package:health_record/search_map.dart';
-import 'package:health_record/text_field.dart';
 import 'package:health_record/join.dart';
 
-void main() {
+import 'firebase_options.dart';
+import 'package:health_record/text_field.dart';
+
+void main() async {
   runApp(const login());
 }
 
@@ -18,8 +19,8 @@ class login extends StatefulWidget {
 }
 
 class login_state extends State<login> {
-  final TextEditingController _controller1 = TextEditingController();
-  final TextEditingController _controller2 = TextEditingController();
+  final TextEditingController _controller5 = TextEditingController();
+  final TextEditingController _controller6 = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -45,8 +46,8 @@ class login_state extends State<login> {
                   height: 200,
                 ),
               ),
-              Text_Field(
-                controller: _controller1,
+              Text_Form_Field(
+                controller: _controller5,
                 labelText: 'E-mail',
                 hintText: 'E-mail',
                 obscureText: false,
@@ -58,8 +59,8 @@ class login_state extends State<login> {
               SizedBox(
                 height: (MediaQuery.sizeOf(context)).height / 50,
               ),
-              Text_Field(
-                controller: _controller2,
+              Text_Form_Field(
+                controller: _controller6,
                 labelText: '비밀번호',
                 hintText: '비밀번호',
                 obscureText: true,
@@ -71,27 +72,26 @@ class login_state extends State<login> {
               SizedBox(
                 height: (MediaQuery.sizeOf(context)).height / 30,
               ),
-              ElevatedButton(
-                onPressed: () {
-                  Navigator.pushAndRemoveUntil(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const Home_Screen()),
-                      (route) => false);
-                },
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.white,
-                  minimumSize: const Size(335, 50),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(8),
+              SizedBox(
+                width: (MediaQuery.sizeOf(context)).width / 1.25,
+                height: (MediaQuery.sizeOf(context)).height / 13,
+                child: ElevatedButton(
+                  onPressed: () {
+                    Navigator.pushNamed(context, '/home_screen');
+                  },
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.white,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
                   ),
-                ),
-                child: const Text(
-                  '로그인',
-                  style: TextStyle(
-                    color: Colors.black,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 18,
+                  child: const Text(
+                    '로그인',
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 18,
+                    ),
                   ),
                 ),
               ),
@@ -114,7 +114,14 @@ class login_state extends State<login> {
                   ),
                   GestureDetector(
                     onTap: () {
-                      Navigator.pushNamed(context, '/');
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) {
+                            return const join();
+                          },
+                        ),
+                      );
                     },
                     child: const Text(
                       '가입하기',

@@ -1,7 +1,9 @@
 //이 파일에서 처음 앱이 시작되며 각 routes를 설정
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_config/flutter_config.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:health_record/firebase_options.dart';
 import 'package:health_record/home_screen.dart';
 import 'package:health_record/info.dart';
 import 'package:health_record/login.dart';
@@ -11,6 +13,11 @@ import 'package:health_record/test.dart';
 import 'package:dio/dio.dart';
 
 void main() async {
+  WidgetsFlutterBinding
+      .ensureInitialized(); //플러터에서 파이어베이스를 사용하기 위해 매인메소드 안에서 비동기방식을 사용하기 위해 사용하는 함수
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  ); //위와 동일
   runApp(const Route_management());
 }
 
@@ -36,7 +43,6 @@ class Route_management extends StatelessWidget {
         '/home_screen': (context) => const Home_Screen(),
         '/info': (context) => const Info(),
         '/Map': (context) => const Search_Map(),
-        '/test': (context) => const MyWidget(),
       },
     );
   }
