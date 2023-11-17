@@ -19,6 +19,7 @@ class _Home_ScreenState extends State<Home_Screen> {
       home: DefaultTabController(
         length: 3,
         child: Scaffold(
+<<<<<<< HEAD
           appBar: AppBar(
             backgroundColor: Colors.black,
             title: const Padding(
@@ -46,6 +47,10 @@ class _Home_ScreenState extends State<Home_Screen> {
               ),
               const Date()
             ],
+=======
+          body: const TabBarView(
+            children: [Search_Map(), Health_Routine(), Date()],
+>>>>>>> seongyeon
           ),
           extendBodyBehindAppBar: true, // add this line
 

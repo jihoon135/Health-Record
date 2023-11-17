@@ -1,55 +1,45 @@
 import 'package:flutter/material.dart';
 
-class Text_Field extends StatefulWidget {
+class Text_Form_Field extends StatefulWidget {
   final String labelText;
   final String hintText;
   final bool obscureText;
   final TextInputType keyboardType;
-  final TextEditingController controller;
+  final String? Function(String?)? validator;
   final Widget prefixIcon;
-
-  const Text_Field({
+  final void Function(String?)? onSaved;
+  final void Function(String)? onChanged;
+  final TextEditingController controller;
+  const Text_Form_Field({
     super.key,
     required this.labelText,
     required this.hintText,
     required this.obscureText,
     required this.keyboardType,
-    required this.controller,
     required this.prefixIcon,
+    this.validator,
+    this.onSaved,
+    this.onChanged,
+    required this.controller,
   });
 
   @override
-  _Text_FieldState createState() => _Text_FieldState();
+  _CustomTextFormFieldState createState() => _CustomTextFormFieldState();
 }
 
-class _Text_FieldState extends State<Text_Field> {
-  bool _isTextEmpty = true;
-
-  @override
-  void initState() {
-    super.initState();
-    _updateTextEmptyState();
-  }
-
-  void _updateTextEmptyState() {
-    setState(() {
-      _isTextEmpty = widget.controller.text.isEmpty;
-    });
-  }
-
+class _CustomTextFormFieldState extends State<Text_Form_Field> {
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.only(left: 40, right: 40),
-      child: TextField(
-        controller: widget.controller,
+      child: TextFormField(
+        onSaved: widget.onSaved,
+        validator: widget.validator,
         obscureText: widget.obscureText,
         keyboardType: widget.keyboardType,
         style: const TextStyle(fontSize: 20, color: Colors.white),
         textAlign: TextAlign.left,
-        onChanged: (value) {
-          _updateTextEmptyState();
-        },
+        onChanged: widget.onChanged,
         decoration: InputDecoration(
           enabledBorder: OutlineInputBorder(
             borderSide: const BorderSide(color: Colors.white),
@@ -71,17 +61,16 @@ class _Text_FieldState extends State<Text_Field> {
           hintStyle: const TextStyle(
             color: Colors.grey,
           ),
-          suffixIcon: _isTextEmpty
-              ? null
-              : IconButton(
-                  icon: const Icon(Icons.clear, color: Colors.white),
-                  onPressed: () {
-                    setState(() {
-                      widget.controller.clear();
-                      _updateTextEmptyState();
-                    });
-                  },
-                ),
+          // suffixIcon: widget.controller.text.isEmpty
+          //     ? null
+          //     : IconButton(
+          //         icon: const Icon(Icons.clear, color: Colors.white),
+          //         onPressed: () {
+          //           setState(() {
+          //             widget.controller.clear();
+          //           });
+          //         },
+          //       ),
         ),
       ),
     );
