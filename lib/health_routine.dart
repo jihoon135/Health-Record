@@ -3,7 +3,7 @@ import 'package:health_record/routine_option.dart';
 
 class Health_Routine extends StatefulWidget {
   List<String> cartItems1;
-  Health_Routine({Key? key, required this.cartItems1}) : super(key: key);
+  Health_Routine({super.key, required this.cartItems1});
 
   @override
   State<Health_Routine> createState() => _Health_RoutineState();

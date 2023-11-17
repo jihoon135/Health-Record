@@ -19,8 +19,38 @@ class _Home_ScreenState extends State<Home_Screen> {
       home: DefaultTabController(
         length: 3,
         child: Scaffold(
+<<<<<<< HEAD
           body: const TabBarView(
             children: [Search_Map(), //Health_Routine(), Date()],
+=======
+          appBar: AppBar(
+            backgroundColor: Colors.black,
+            title: const Padding(
+              padding: EdgeInsets.only(left: 35.0),
+              child: Center(child: Text('Routine Mate')),
+            ),
+            actions: <Widget>[
+              IconButton(
+                icon: const Icon(Icons.person),
+                hoverColor: const Color.fromARGB(78, 255, 255, 255),
+                onPressed: () {
+                  Navigator.pushAndRemoveUntil(
+                      context,
+                      MaterialPageRoute(builder: (context) => const Info()),
+                      (route) => false); //info로 이동하기
+                },
+              ),
+            ],
+          ),
+          body: TabBarView(
+            children: [
+              const Search_Map(),
+              Health_Routine(
+                cartItems1: const [],
+              ),
+              const Date()
+            ],
+>>>>>>> ebc126be77f65adf614a7b4bba489123bc1f0d46
           ),
           extendBodyBehindAppBar: true, // add this line
 
