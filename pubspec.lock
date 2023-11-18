@@ -788,11 +788,7 @@ packages:
       sha256: dc8ccd225a2005c1be616fe02951e2e342092edf968cf0844220383757ef8f10
       url: "https://pub.dev"
     source: hosted
-<<<<<<< HEAD
-    version: "0.3.0"
-=======
-    version: "0.1.4-beta"
->>>>>>> ebc126be77f65adf614a7b4bba489123bc1f0d46
+    version: "0.3.0":
   webview_flutter:
     dependency: transitive
     description:
