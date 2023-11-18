@@ -1,10 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:health_record/health_routine.dart';
 
-void main() {
-  runApp(const Routine_Option());
-}
-
 class Routine_Option extends StatefulWidget {
   const Routine_Option({super.key});
 

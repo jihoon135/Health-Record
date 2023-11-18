@@ -3,6 +3,7 @@ import 'package:health_record/date.dart';
 import 'package:health_record/health_routine.dart';
 import 'package:health_record/info.dart';
 import 'package:health_record/search_map.dart';
+import 'package:flutter_naver_map/flutter_naver_map.dart';
 
 class Home_Screen extends StatefulWidget {
   const Home_Screen({super.key});
@@ -19,10 +20,6 @@ class _Home_ScreenState extends State<Home_Screen> {
       home: DefaultTabController(
         length: 3,
         child: Scaffold(
-<<<<<<< HEAD
-          body: const TabBarView(
-            children: [Search_Map(), //Health_Routine(), Date()],
-=======
           appBar: AppBar(
             backgroundColor: Colors.black,
             title: const Padding(
@@ -50,7 +47,6 @@ class _Home_ScreenState extends State<Home_Screen> {
               ),
               const Date()
             ],
->>>>>>> ebc126be77f65adf614a7b4bba489123bc1f0d46
           ),
           extendBodyBehindAppBar: true, // add this line
 
