@@ -82,12 +82,10 @@ class login_state extends State<login> {
                         email: emailController.text, // 입력된 이메일
                         password: passwordController.text, // 입력된 비밀번호
                       );
-
                       // 로그인이 성공하면 다음 페이지로 이동
                       Navigator.pushNamed(context, '/home_screen');
                     } on FirebaseAuthException {
                       // 로그인 실패 시 에러 처리
-
                       Fluttertoast.showToast(
                         msg: '잘못된 정보입니다. 다시 입력해주세요.',
                         toastLength: Toast.LENGTH_SHORT,
