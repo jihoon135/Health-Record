@@ -42,6 +42,9 @@ class _CustomTextFormFieldState extends State<Text_Form_Field> {
         textAlign: TextAlign.left,
         onChanged: widget.onChanged,
         decoration: InputDecoration(
+          errorStyle: const TextStyle(
+            color: Colors.white, // 오류 메시지의 텍스트 색상
+          ),
           enabledBorder: OutlineInputBorder(
             borderSide: const BorderSide(color: Colors.white),
             borderRadius: BorderRadius.circular(10),

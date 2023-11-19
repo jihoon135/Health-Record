@@ -41,17 +41,24 @@ class join_state extends State<join> {
           email: userEmail, password: userPassword);
 
       if (newUser.user != null) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-            content: Text('회원가입 완료!'),
-          ),
+        Fluttertoast.showToast(
+          msg: '회원가입 완료!',
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.BOTTOM,
+          backgroundColor: Colors.red,
+          textColor: Colors.white,
+          fontSize: 16.0,
         );
+        const login();
       }
     } on FirebaseAuthException {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text('오류입니다!'),
-        ),
+      Fluttertoast.showToast(
+        msg: '올바른 이메일 형식과 비밀번호는 6자리 이상 적어주세요!',
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.BOTTOM,
+        backgroundColor: Colors.red,
+        textColor: Colors.white,
+        fontSize: 16.0,
       );
     }
   }
@@ -91,50 +98,26 @@ class join_state extends State<join> {
                     width: 200,
                     height: 200,
                   ),
-                  Text_Form_Field(
-                    validator: (value) {
-                      if (value!.isEmpty) {
-                        return '이름을 입력해주세요';
-                      }
-                      return null;
-                    },
-                    onSaved: (value) {
-                      userName = value!;
-                    },
-                    onChanged: (value) {
-                      userName = value;
-                    },
-                    key: const ValueKey(1),
+                  const Text_Form_Field(
+                    key: ValueKey(1),
                     labelText: '이름을 입력하세요.',
                     hintText: '이름',
                     obscureText: false,
                     keyboardType: TextInputType.name,
-                    prefixIcon: const Icon(
+                    prefixIcon: Icon(
                       Icons.person,
                     ),
                   ),
                   SizedBox(
                     height: (MediaQuery.sizeOf(context)).height / 50,
                   ),
-                  Text_Form_Field(
-                    validator: (value) {
-                      if (value!.isEmpty) {
-                        return '휴대폰 번호를 입력해주세요';
-                      }
-                      return null;
-                    },
-                    onSaved: (value) {
-                      userPhone = value!;
-                    },
-                    onChanged: (value) {
-                      userPhone = value;
-                    },
-                    key: const ValueKey(2),
+                  const Text_Form_Field(
+                    key: ValueKey(2),
                     labelText: '휴대폰 번호를 입력하세요.',
                     hintText: '휴대폰 번호',
                     obscureText: false,
                     keyboardType: TextInputType.number,
-                    prefixIcon: const Icon(
+                    prefixIcon: Icon(
                       Icons.phone_iphone,
                     ),
                   ),
