@@ -1,43 +1,76 @@
 import 'package:flutter/material.dart';
 
-///TextField 위젯을 클래스로 만들었다
-class Text_Field extends StatelessWidget {
+class Text_Form_Field extends StatefulWidget {
   final String labelText;
   final String hintText;
   final bool obscureText;
   final TextInputType keyboardType;
+  final String? Function(String?)? validator;
+  final Widget prefixIcon;
+  final void Function(String?)? onSaved;
+  final void Function(String)? onChanged;
   final TextEditingController controller;
-  const Text_Field({
+  const Text_Form_Field({
     super.key,
     required this.labelText,
     required this.hintText,
     required this.obscureText,
     required this.keyboardType,
+    required this.prefixIcon,
+    this.validator,
+    this.onSaved,
+    this.onChanged,
     required this.controller,
   });
 
   @override
+  _CustomTextFormFieldState createState() => _CustomTextFormFieldState();
+}
+
+class _CustomTextFormFieldState extends State<Text_Form_Field> {
+  @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(
-        left: 40,
-        right: 40,
-      ),
-      child: TextField(
-        controller: controller,
-        obscureText: obscureText,
-        keyboardType: keyboardType,
+      padding: const EdgeInsets.only(left: 40, right: 40),
+      child: TextFormField(
+        onSaved: widget.onSaved,
+        validator: widget.validator,
+        obscureText: widget.obscureText,
+        keyboardType: widget.keyboardType,
         style: const TextStyle(fontSize: 20, color: Colors.white),
         textAlign: TextAlign.left,
+        onChanged: widget.onChanged,
         decoration: InputDecoration(
-          enabledBorder: const UnderlineInputBorder(
-            borderSide: BorderSide(color: Colors.white),
+          enabledBorder: OutlineInputBorder(
+            borderSide: const BorderSide(color: Colors.white),
+            borderRadius: BorderRadius.circular(10),
+          ),
+          focusedBorder: OutlineInputBorder(
+            borderSide: const BorderSide(color: Colors.white),
+            borderRadius: BorderRadius.circular(10),
           ),
           fillColor: Colors.black,
           filled: true,
-          labelText: labelText,
-          hintText: hintText,
-          hintStyle: const TextStyle(color: Colors.grey),
+          labelText: widget.labelText,
+          prefixIcon: Align(
+            widthFactor: 1.0,
+            heightFactor: 1.0,
+            child: widget.prefixIcon,
+          ),
+          hintText: widget.hintText,
+          hintStyle: const TextStyle(
+            color: Colors.grey,
+          ),
+          // suffixIcon: widget.controller.text.isEmpty
+          //     ? null
+          //     : IconButton(
+          //         icon: const Icon(Icons.clear, color: Colors.white),
+          //         onPressed: () {
+          //           setState(() {
+          //             widget.controller.clear();
+          //           });
+          //         },
+          //       ),
         ),
       ),
     );

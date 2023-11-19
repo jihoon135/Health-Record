@@ -1,17 +1,56 @@
+import 'dart:async';
+import 'dart:developer' show log;
 import 'package:flutter/material.dart';
+import 'package:flutter_naver_map/flutter_naver_map.dart';
+
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await NaverMapSdk.instance.initialize(clientId: 'd3l4yv0v0x');
+  runApp(const Search_Map());
+}
 
 class Search_Map extends StatefulWidget {
   const Search_Map({super.key});
 
   @override
-  State<Search_Map> createState() => _Search_MapState();
+  State<Search_Map> createState() => TestPageState();
 }
 
-class _Search_MapState extends State<Search_Map> {
+class TestPageState extends State<Search_Map> {
+  late NaverMapController _mapController;
+  final Completer<NaverMapController> mapControllerCompleter = Completer();
+
   @override
   Widget build(BuildContext context) {
-    return const Placeholder(); //어려워보이네
+    final mediaQuery = MediaQuery.of(context);
+    final pixelRatio = mediaQuery.devicePixelRatio;
+    final mapSize =
+        Size(mediaQuery.size.width - 32, mediaQuery.size.height - 72);
+    final physicalSize =
+        Size(mapSize.width * pixelRatio, mapSize.height * pixelRatio);
+
+    print("physicalSize: $physicalSize");
+
+    return Scaffold(
+      backgroundColor: const Color(0xFF343945),
+      body: Center(
+        child: SizedBox(
+          width: mapSize.width,
+          height: mapSize.height,
+          child: NaverMap(
+            options: const NaverMapViewOptions(
+              indoorEnable: true,
+              locationButtonEnable: false,
+              consumeSymbolTapEvents: false,
+            ),
+            onMapReady: (controller) async {
+              _mapController = controller;
+              mapControllerCompleter.complete(controller);
+              log("onMapReady", name: "onMapReady");
+            },
+          ),
+        ),
+      ),
+    );
   }
 }
-
-// https://pub.dev/packages/kakao_map_plugin 참고 요망
