@@ -3,12 +3,6 @@ import 'dart:developer' show log;
 import 'package:flutter/material.dart';
 import 'package:flutter_naver_map/flutter_naver_map.dart';
 
-void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-  await NaverMapSdk.instance.initialize(clientId: 'd3l4yv0v0x');
-  runApp(const Search_Map());
-}
-
 class Search_Map extends StatefulWidget {
   const Search_Map({super.key});
 
