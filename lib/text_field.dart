@@ -9,7 +9,7 @@ class Text_Form_Field extends StatefulWidget {
   final Widget prefixIcon;
   final void Function(String?)? onSaved;
   final void Function(String)? onChanged;
-  final TextEditingController controller;
+
   const Text_Form_Field({
     super.key,
     required this.labelText,
@@ -20,7 +20,6 @@ class Text_Form_Field extends StatefulWidget {
     this.validator,
     this.onSaved,
     this.onChanged,
-    required this.controller,
   });
 
   @override

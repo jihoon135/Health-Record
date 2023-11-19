@@ -15,15 +15,13 @@ class join extends StatefulWidget {
 }
 
 class join_state extends State<join> {
-  final TextEditingController _controller1 = TextEditingController();
-  final TextEditingController _controller2 = TextEditingController();
-  final TextEditingController _controller3 = TextEditingController();
-  final TextEditingController _controller4 = TextEditingController();
-  final TextEditingController _controller5 = TextEditingController();
   final _authemtication = FirebaseAuth.instance; //파이어베이스 사용자 인증과 등록에 사용할 인스턴스
 
   String userEmail = '';
   String userPassword = '';
+  String userName = '';
+  String userPhone = '';
+  String userPasswordCheck = '';
   final _formkey = GlobalKey<FormState>();
 
   void _tryValidation() {
@@ -94,12 +92,17 @@ class join_state extends State<join> {
                     height: 200,
                   ),
                   Text_Form_Field(
-                    controller: _controller1,
                     validator: (value) {
                       if (value!.isEmpty) {
                         return '이름을 입력해주세요';
                       }
                       return null;
+                    },
+                    onSaved: (value) {
+                      userName = value!;
+                    },
+                    onChanged: (value) {
+                      userName = value;
                     },
                     key: const ValueKey(1),
                     labelText: '이름을 입력하세요.',
@@ -114,12 +117,17 @@ class join_state extends State<join> {
                     height: (MediaQuery.sizeOf(context)).height / 50,
                   ),
                   Text_Form_Field(
-                    controller: _controller2,
                     validator: (value) {
                       if (value!.isEmpty) {
                         return '휴대폰 번호를 입력해주세요';
                       }
                       return null;
+                    },
+                    onSaved: (value) {
+                      userPhone = value!;
+                    },
+                    onChanged: (value) {
+                      userPhone = value;
                     },
                     key: const ValueKey(2),
                     labelText: '휴대폰 번호를 입력하세요.',
@@ -134,7 +142,6 @@ class join_state extends State<join> {
                     height: (MediaQuery.sizeOf(context)).height / 50,
                   ),
                   Text_Form_Field(
-                      controller: _controller3,
                       key: const ValueKey(3),
                       validator: (value) {
                         if (value!.isEmpty || !value.contains('@')) {
@@ -159,7 +166,6 @@ class join_state extends State<join> {
                     height: (MediaQuery.sizeOf(context)).height / 50,
                   ),
                   Text_Form_Field(
-                    controller: _controller4,
                     key: const ValueKey(4),
                     validator: (value) {
                       if (value!.isEmpty || value.length < 6) {
@@ -185,7 +191,6 @@ class join_state extends State<join> {
                     height: (MediaQuery.sizeOf(context)).height / 50,
                   ),
                   Text_Form_Field(
-                    controller: _controller5,
                     key: const ValueKey(5),
                     validator: (value) {
                       if (value!.isEmpty || value.length < 6) {
@@ -194,10 +199,10 @@ class join_state extends State<join> {
                       return null;
                     },
                     onSaved: (value) {
-                      userPassword = value!;
+                      userPasswordCheck = value!;
                     },
                     onChanged: (value) {
-                      userPassword = value;
+                      userPasswordCheck = value;
                     },
                     labelText: '비밀번호를 재입력하세요.',
                     hintText: '비밀번호',
@@ -212,22 +217,8 @@ class join_state extends State<join> {
                   ),
                   ElevatedButton(
                     onPressed: () {
-                      if (_controller1.text.isEmpty ||
-                          _controller2.text.isEmpty ||
-                          _controller3.text.isEmpty ||
-                          _controller4.text.isEmpty) {
-                        Fluttertoast.showToast(
-                          msg: "모든 항목을 입력해주세요!",
-                          fontSize: 20,
-                        );
-                      } else if (_controller4.text != _controller5.text) {
-                        Fluttertoast.showToast(
-                          msg: "비밀번호가 일치하지 않습니다!",
-                          fontSize: 20,
-                        );
-                      } else {
-                        // Proceed with signUp and _navigateToLogin
-                        Future.wait([signUp(), _navigateToLogin()]);
+                      {
+                        signUp();
                       }
                     },
                     child: const Text(

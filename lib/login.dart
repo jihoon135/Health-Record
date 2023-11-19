@@ -1,18 +1,9 @@
 //로그인 창 화면이다
-import 'package:firebase_core/firebase_core.dart';
+
 import 'package:flutter/material.dart';
 import 'package:health_record/join.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'firebase_options.dart';
-import 'package:firebase_core/firebase_core.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 
-import 'firebase_options.dart';
 import 'package:health_record/text_field.dart';
-
-void main() async {
-  runApp(const login());
-}
 
 class login extends StatefulWidget {
   const login({super.key});
@@ -23,8 +14,6 @@ class login extends StatefulWidget {
 }
 
 class login_state extends State<login> {
-  final TextEditingController _controller5 = TextEditingController();
-  final TextEditingController _controller6 = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -50,26 +39,24 @@ class login_state extends State<login> {
                   height: 200,
                 ),
               ),
-              Text_Form_Field(
-                controller: _controller5,
+              const Text_Form_Field(
                 labelText: 'E-mail',
                 hintText: 'E-mail',
                 obscureText: false,
                 keyboardType: TextInputType.emailAddress,
-                prefixIcon: const Icon(
+                prefixIcon: Icon(
                   Icons.mail,
                 ),
               ),
               SizedBox(
                 height: (MediaQuery.sizeOf(context)).height / 50,
               ),
-              Text_Form_Field(
-                controller: _controller6,
+              const Text_Form_Field(
                 labelText: '비밀번호',
                 hintText: '비밀번호',
                 obscureText: true,
                 keyboardType: TextInputType.text,
-                prefixIcon: const Icon(
+                prefixIcon: Icon(
                   Icons.lock,
                 ),
               ),
