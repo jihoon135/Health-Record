@@ -47,7 +47,7 @@ class join_state extends State<join> {
           ),
         );
       }
-    } on FirebaseAuthException catch (error) {
+    } on FirebaseAuthException {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
           content: Text('오류입니다!'),

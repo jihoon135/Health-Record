@@ -9,7 +9,7 @@ class Text_Form_Field extends StatefulWidget {
   final Widget prefixIcon;
   final void Function(String?)? onSaved;
   final void Function(String)? onChanged;
-
+  final TextEditingController? controller;
   const Text_Form_Field({
     super.key,
     required this.labelText,
@@ -20,6 +20,7 @@ class Text_Form_Field extends StatefulWidget {
     this.validator,
     this.onSaved,
     this.onChanged,
+    this.controller,
   });
 
   @override
@@ -32,6 +33,7 @@ class _CustomTextFormFieldState extends State<Text_Form_Field> {
     return Padding(
       padding: const EdgeInsets.only(left: 40, right: 40),
       child: TextFormField(
+        controller: widget.controller,
         onSaved: widget.onSaved,
         validator: widget.validator,
         obscureText: widget.obscureText,
