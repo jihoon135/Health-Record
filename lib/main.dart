@@ -13,7 +13,9 @@ import 'package:health_record/search_map.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await dotenv.load(fileName: ".env"); // 추가
+  await dotenv.load(
+    fileName: ".env",
+  ); // 추가
 
   await NaverMapSdk.instance.initialize(clientId: dotenv.env['naver_api_key']);
   WidgetsFlutterBinding

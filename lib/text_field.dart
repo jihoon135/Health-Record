@@ -10,6 +10,7 @@ class Text_Form_Field extends StatefulWidget {
   final void Function(String?)? onSaved;
   final void Function(String)? onChanged;
   final TextEditingController? controller;
+  final String? errorText;
   const Text_Form_Field({
     super.key,
     required this.labelText,
@@ -21,6 +22,7 @@ class Text_Form_Field extends StatefulWidget {
     this.onSaved,
     this.onChanged,
     this.controller,
+    this.errorText,
   });
 
   @override
@@ -42,15 +44,20 @@ class _CustomTextFormFieldState extends State<Text_Form_Field> {
         textAlign: TextAlign.left,
         onChanged: widget.onChanged,
         decoration: InputDecoration(
+          errorText: widget.errorText,
           errorStyle: const TextStyle(
             color: Colors.white, // 오류 메시지의 텍스트 색상
           ),
           enabledBorder: OutlineInputBorder(
-            borderSide: const BorderSide(color: Colors.white),
+            borderSide: const BorderSide(
+              color: Colors.white,
+            ),
             borderRadius: BorderRadius.circular(10),
           ),
           focusedBorder: OutlineInputBorder(
-            borderSide: const BorderSide(color: Colors.white),
+            borderSide: const BorderSide(
+              color: Colors.white,
+            ),
             borderRadius: BorderRadius.circular(10),
           ),
           fillColor: Colors.black,

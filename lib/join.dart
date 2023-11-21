@@ -16,6 +16,12 @@ class join extends StatefulWidget {
 
 class join_state extends State<join> {
   final _authemtication = FirebaseAuth.instance; //파이어베이스 사용자 인증과 등록에 사용할 인스턴스
+  final TextEditingController _editingController = TextEditingController();
+  final TextEditingController _editingController2 = TextEditingController();
+  final TextEditingController _editingController3 = TextEditingController();
+  final TextEditingController _editingController4 = TextEditingController();
+  final TextEditingController _editingController5 = TextEditingController();
+  final int EmailLength = 6;
 
   String userEmail = '';
   String userPassword = '';
@@ -41,6 +47,14 @@ class join_state extends State<join> {
           email: userEmail, password: userPassword);
 
       if (newUser.user != null) {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) {
+              return const login();
+            },
+          ),
+        );
         Fluttertoast.showToast(
           msg: '회원가입 완료!',
           toastLength: Toast.LENGTH_SHORT,
@@ -49,7 +63,6 @@ class join_state extends State<join> {
           textColor: Colors.white,
           fontSize: 16.0,
         );
-        const login();
       }
     } on FirebaseAuthException {
       Fluttertoast.showToast(
@@ -98,13 +111,14 @@ class join_state extends State<join> {
                     width: 200,
                     height: 200,
                   ),
-                  const Text_Form_Field(
-                    key: ValueKey(1),
+                  Text_Form_Field(
+                    controller: _editingController,
+                    key: const ValueKey(1),
                     labelText: '이름을 입력하세요.',
                     hintText: '이름',
                     obscureText: false,
                     keyboardType: TextInputType.name,
-                    prefixIcon: Icon(
+                    prefixIcon: const Icon(
                       Icons.person,
                     ),
                   ),
@@ -136,6 +150,7 @@ class join_state extends State<join> {
                         userEmail = value!;
                       },
                       onChanged: (value) {
+                        setState(() {});
                         userEmail = value;
                       },
                       labelText: 'E-mail 입력하세요.',
@@ -160,6 +175,7 @@ class join_state extends State<join> {
                       userPassword = value!;
                     },
                     onChanged: (value) {
+                      setState(() {});
                       userPassword = value;
                     },
                     labelText: '비밀번호를 입력하세요.',
@@ -185,6 +201,7 @@ class join_state extends State<join> {
                       userPasswordCheck = value!;
                     },
                     onChanged: (value) {
+                      setState(() {});
                       userPasswordCheck = value;
                     },
                     labelText: '비밀번호를 재입력하세요.',
