@@ -1,4 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:health_record/health_routine.dart';
+
+void main() {
+  runApp(const Routine_Option());
+}
 
 class Routine_Option extends StatefulWidget {
   const Routine_Option({super.key});
@@ -8,6 +13,35 @@ class Routine_Option extends StatefulWidget {
 }
 
 class _Routine_OptionState extends State<Routine_Option> {
+  var health_list = [
+    '데드리프트',
+    '벤치 프레스',
+    '인클라인 벤치 프레스',
+    '케이블 플라이 크로스오버',
+    '체스트 프레스',
+    '딥스',
+    '체스트 플라이',
+    '렛 풀 다운',
+    '친 업',
+    '풀 업',
+    '시티 드로우',
+    '암 풀 다운',
+    '바벨로우',
+    '프론트 레이즈',
+    '사이드 레터럴 레이즈',
+    '벤트오버 레터럴 레이즈',
+    '밀리터리 프레스',
+    '이두 컬',
+    '푸쉬 다운',
+    '리스트 컬',
+    '레그 프레스',
+    '스쿼트',
+    '레그 익스텐션',
+    '레그 컬',
+  ];
+
+  List<String> cartItems = []; //장바구니 정보임
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(

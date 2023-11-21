@@ -75,3 +75,5 @@ class _Health_RoutineState extends State<Health_Routine> {
     );
   }
 }
+
+// 컨테이너에 텍스트 받아오기
