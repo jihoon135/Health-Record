@@ -56,7 +56,7 @@ class _Routine_OptionState extends State<Routine_Option> {
                   return GestureDetector(
                     onTap: () {
                       setState(() {
-                        // 장바구니 추가, 제거
+// 장바구니 추가, 제거
                         if (cartItems.contains(health_list[index])) {
                           cartItems.remove(health_list[index]);
                         } else {
@@ -70,7 +70,7 @@ class _Routine_OptionState extends State<Routine_Option> {
                         color: Color.fromRGBO(150, 110, 13, 100),
                       ),
                       title: Text(health_list[index]),
-                      // 선택된 항목 강조
+// 선택된 항목 강조
                       tileColor: cartItems.contains(health_list[index])
                           ? Colors.grey.withOpacity(0.3)
                           : null,
