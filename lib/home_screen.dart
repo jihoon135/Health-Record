@@ -3,6 +3,7 @@ import 'package:health_record/date.dart';
 import 'package:health_record/health_routine.dart';
 import 'package:health_record/info.dart';
 import 'package:health_record/search_map.dart';
+import 'package:flutter_naver_map/flutter_naver_map.dart';
 
 class Home_Screen extends StatefulWidget {
   const Home_Screen({super.key});

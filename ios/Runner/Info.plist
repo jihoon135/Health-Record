@@ -2,6 +2,18 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 	<dict>
+		<key>NMFClientId</key>
+		<string>d3l4yv0v0x</string>
+		<key>io.flutter.embedded_views_preview</key>
+		<true/>
+		<key>NSAllowsArbitraryLoads</key>
+		<true/>
+		<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+		<string>Always and When In Use Usage</string>
+		<key>NSLocationAlwaysUsageDescription</key>
+		<string>Always</string>
+		<key>NSLocationWhenInUseUsageDescription</key>
+		<string>When In Use Usage</string>
 		<key>CFBundleDevelopmentRegion</key>
 		<string>$(DEVELOPMENT_LANGUAGE)</string>
 		<key>CFBundleDisplayName</key>
@@ -48,13 +60,20 @@
 		<key>UIStatusBarHidden</key>
 		<false/>
 		<key>NSAppTransportSecurity</key>
-      		<dict>
-        		<key>NSAllowsArbitraryLoads</key>
-        		<true/>
-        		<key>NSAllowsArbitraryLoadsInWebContent</key>
-        		<true/>
-    		</dict>
-    	<key>io.flutter.embedded_views_preview</key>
-    	<true/>
+		<dict>
+			<key>NSAllowsArbitraryLoads</key>
+			<true/>
+			<key>NSAllowsArbitraryLoadsInWebContent</key>
+			<true/>
+		</dict>
+		<key>io.flutter.embedded_views_preview</key>
+		<true/>
+		<key>NSLocationTemporaryUsageDescriptionDictionary</key>
+		<dict>
+  			<key>YourPurposeKey1</key>
+  			<string>The example App requires temporary access to the device&apos;s precise location.</string>
+  			<key>YourPurposeKey2</key>
+  			<string>The example App requires temporary access to the device&apos;s precise location.</string>
+		</dict>
 	</dict>
 </plist>
