@@ -81,12 +81,11 @@ class _Routine_OptionState extends State<Routine_Option> {
         ),
         floatingActionButton: FloatingActionButton(
           onPressed: () {
-            Navigator.pushAndRemoveUntil(
+            Navigator.push(
                 context,
                 MaterialPageRoute(
                     builder: (context) =>
-                        Health_Routine(cartItems1: cartItems)),
-                (route) => false);
+                        Health_Routine(cartItems1: cartItems)));
           },
           child: const Icon(Icons.shopping_cart),
         ),

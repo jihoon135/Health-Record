@@ -44,6 +44,7 @@ class _Health_RoutineState extends State<Health_Routine> {
                       icon: const Icon(Icons.add),
                       onPressed: () {
                         Navigator.push(
+                          //push named로 한번 바꿔보자
                           context,
                           MaterialPageRoute(
                             builder: (context) => const Routine_Option(),
@@ -75,3 +76,5 @@ class _Health_RoutineState extends State<Health_Routine> {
     );
   }
 }
+
+// 컨테이너에 텍스트 받아오기
