@@ -17,8 +17,21 @@ class login extends StatefulWidget {
 
 class login_state extends State<login> {
   final FirebaseAuth _auth = FirebaseAuth.instance;
-  final TextEditingController emailController = TextEditingController();
-  final TextEditingController passwordController = TextEditingController();
+  final emailController = TextEditingController();
+  final passwordController = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+
+    emailController.addListener(() {
+      setState(() {});
+    });
+    passwordController.addListener(() {
+      setState(() {});
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -47,11 +60,23 @@ class login_state extends State<login> {
               Text_Form_Field(
                 controller: emailController,
                 labelText: 'E-mail',
-                hintText: 'E-mail',
+                hintText: '이메일을 입력해주세요',
                 obscureText: false,
                 keyboardType: TextInputType.emailAddress,
                 prefixIcon: const Icon(
                   Icons.mail,
+                  color: Colors.white60,
+                ),
+                suffixIcon: GestureDetector(
+                  onTap: () {
+                    emailController.clear();
+                  },
+                  child: Icon(
+                    Icons.clear,
+                    color: emailController.text.isEmpty
+                        ? Colors.grey
+                        : Colors.white,
+                  ),
                 ),
               ),
               SizedBox(
@@ -60,11 +85,23 @@ class login_state extends State<login> {
               Text_Form_Field(
                 controller: passwordController,
                 labelText: '비밀번호',
-                hintText: '비밀번호',
+                hintText: '비밀번호를 입력해주세요',
                 obscureText: true,
                 keyboardType: TextInputType.text,
                 prefixIcon: const Icon(
                   Icons.lock,
+                  color: Colors.white60,
+                ),
+                suffixIcon: GestureDetector(
+                  onTap: () {
+                    passwordController.clear();
+                  },
+                  child: Icon(
+                    Icons.clear,
+                    color: passwordController.text.isEmpty
+                        ? Colors.grey
+                        : const Color.fromARGB(255, 255, 255, 255),
+                  ),
                 ),
               ),
               SizedBox(
@@ -141,7 +178,7 @@ class login_state extends State<login> {
                       style: TextStyle(
                         fontSize: 20,
                         fontWeight: FontWeight.bold,
-                        color: Colors.blue,
+                        color: Color.fromARGB(255, 255, 178, 178),
                       ),
                     ),
                   )

@@ -20,14 +20,13 @@ class join_state extends State<join> {
   final TextEditingController _editingController2 = TextEditingController();
   final TextEditingController _editingController3 = TextEditingController();
   final TextEditingController _editingController4 = TextEditingController();
-  final TextEditingController _editingController5 = TextEditingController();
-  final int EmailLength = 6;
+  
 
   String userEmail = '';
   String userPassword = '';
   String userName = '';
   String userPhone = '';
-  String userPasswordCheck = '';
+
   final _formkey = GlobalKey<FormState>();
 
   void _tryValidation() {
@@ -59,21 +58,12 @@ class join_state extends State<join> {
           msg: '회원가입 완료!',
           toastLength: Toast.LENGTH_SHORT,
           gravity: ToastGravity.BOTTOM,
-          backgroundColor: Colors.red,
+          backgroundColor: const Color.fromARGB(255, 255, 178, 178),
           textColor: Colors.white,
           fontSize: 16.0,
         );
       }
-    } on FirebaseAuthException {
-      Fluttertoast.showToast(
-        msg: '올바른 이메일 형식과 비밀번호는 6자리 이상 적어주세요!',
-        toastLength: Toast.LENGTH_SHORT,
-        gravity: ToastGravity.BOTTOM,
-        backgroundColor: Colors.red,
-        textColor: Colors.white,
-        fontSize: 16.0,
-      );
-    }
+    } on FirebaseAuthException {}
   }
 
   Future<void> _navigateToLogin() async {
@@ -104,132 +94,127 @@ class join_state extends State<join> {
               top: 50,
             ),
             child: SingleChildScrollView(
-              child: Column(
-                children: [
-                  Image.asset(
-                    'images/splash_screen_remove_background.png',
-                    width: 200,
-                    height: 200,
-                  ),
-                  Text_Form_Field(
-                    controller: _editingController,
-                    key: const ValueKey(1),
-                    labelText: '이름을 입력하세요.',
-                    hintText: '이름',
-                    obscureText: false,
-                    keyboardType: TextInputType.name,
-                    prefixIcon: const Icon(
-                      Icons.person,
+              child: Form(
+                key: _formkey,
+                autovalidateMode: AutovalidateMode.always,
+                child: Column(
+                  children: [
+                    Image.asset(
+                      'images/splash_screen_remove_background.png',
+                      width: 200,
+                      height: 200,
                     ),
-                  ),
-                  SizedBox(
-                    height: (MediaQuery.sizeOf(context)).height / 50,
-                  ),
-                  const Text_Form_Field(
-                    key: ValueKey(2),
-                    labelText: '휴대폰 번호를 입력하세요.',
-                    hintText: '휴대폰 번호',
-                    obscureText: false,
-                    keyboardType: TextInputType.number,
-                    prefixIcon: Icon(
-                      Icons.phone_iphone,
+                    Text_Form_Field(
+                      suffixIcon: const Icon(
+                        Icons.clear,
+                      ),
+                      controller: _editingController,
+                      key: const ValueKey(1),
+                      labelText: '이름을 입력하세요 (선택)',
+                      hintText: '이름',
+                      obscureText: false,
+                      keyboardType: TextInputType.name,
+                      prefixIcon: const Icon(
+                        Icons.person,
+                      ),
                     ),
-                  ),
-                  SizedBox(
-                    height: (MediaQuery.sizeOf(context)).height / 50,
-                  ),
-                  Text_Form_Field(
-                      key: const ValueKey(3),
+                    SizedBox(
+                      height: (MediaQuery.sizeOf(context)).height / 50,
+                    ),
+                    Text_Form_Field(
+                      key: const ValueKey(2),
+                      labelText: '휴대폰 번호를 입력하세요 (선택)',
+                      hintText: '휴대폰 번호',
+                      obscureText: false,
+                      keyboardType: TextInputType.number,
+                      prefixIcon: const Icon(
+                        Icons.phone_iphone,
+                      ),
+                      suffixIcon: const Icon(
+                        Icons.clear,
+                      ),
+                    ),
+                    SizedBox(
+                      height: (MediaQuery.sizeOf(context)).height / 50,
+                    ),
+                    Text_Form_Field(
+                        key: const ValueKey(3),
+                        validator: (value) {
+                          if (value!.isEmpty || !value.contains('@')) {
+                            return '올바른 이메일 형식을 입력해주세요.';
+                          }
+                          return null;
+                        },
+                        suffixIcon: const Icon(
+                          Icons.clear,
+                        ),
+                        onSaved: (value) {
+                          userEmail = value!;
+                        },
+                        onChanged: (value) {
+                          setState(() {});
+                          userEmail = value;
+                        },
+                        labelText: 'E-mail 입력하세요.',
+                        hintText: 'E-mail',
+                        obscureText: false,
+                        keyboardType: TextInputType.emailAddress,
+                        prefixIcon: const Icon(
+                          Icons.email_outlined,
+                        )),
+                    SizedBox(
+                      height: (MediaQuery.sizeOf(context)).height / 50,
+                    ),
+                    Text_Form_Field(
+                      key: const ValueKey(4),
                       validator: (value) {
-                        if (value!.isEmpty || !value.contains('@')) {
-                          return '올바른 이메일 형식을 입력해주세요.';
+                        if (value!.isEmpty || value.length < 6) {
+                          return '최소 6글자 이상 입력하세요.';
                         }
                         return null;
                       },
                       onSaved: (value) {
-                        userEmail = value!;
+                        userPassword = value!;
                       },
                       onChanged: (value) {
                         setState(() {});
-                        userEmail = value;
+                        userPassword = value;
                       },
-                      labelText: 'E-mail 입력하세요.',
-                      hintText: 'E-mail',
-                      obscureText: false,
-                      keyboardType: TextInputType.emailAddress,
+                      suffixIcon: const Icon(
+                        Icons.clear,
+                      ),
+                      labelText: '비밀번호를 입력하세요.',
+                      hintText: '비밀번호',
+                      obscureText: true,
+                      keyboardType: TextInputType.text,
                       prefixIcon: const Icon(
-                        Icons.email_outlined,
-                      )),
-                  SizedBox(
-                    height: (MediaQuery.sizeOf(context)).height / 50,
-                  ),
-                  Text_Form_Field(
-                    key: const ValueKey(4),
-                    validator: (value) {
-                      if (value!.isEmpty || value.length < 6) {
-                        return '최소 6글자 이상 입력하세요.';
-                      }
-                      return null;
-                    },
-                    onSaved: (value) {
-                      userPassword = value!;
-                    },
-                    onChanged: (value) {
-                      setState(() {});
-                      userPassword = value;
-                    },
-                    labelText: '비밀번호를 입력하세요.',
-                    hintText: '비밀번호',
-                    obscureText: true,
-                    keyboardType: TextInputType.text,
-                    prefixIcon: const Icon(
-                      Icons.lock,
-                    ),
-                  ),
-                  SizedBox(
-                    height: (MediaQuery.sizeOf(context)).height / 50,
-                  ),
-                  Text_Form_Field(
-                    key: const ValueKey(5),
-                    validator: (value) {
-                      if (value!.isEmpty || value.length < 6) {
-                        return '최소 6글자 이상 입력하세요.';
-                      }
-                      return null;
-                    },
-                    onSaved: (value) {
-                      userPasswordCheck = value!;
-                    },
-                    onChanged: (value) {
-                      setState(() {});
-                      userPasswordCheck = value;
-                    },
-                    labelText: '비밀번호를 재입력하세요.',
-                    hintText: '비밀번호',
-                    obscureText: true,
-                    keyboardType: TextInputType.text,
-                    prefixIcon: const Icon(
-                      Icons.lock,
-                    ),
-                  ),
-                  SizedBox(
-                    height: (MediaQuery.sizeOf(context)).height / 17,
-                  ),
-                  ElevatedButton(
-                    onPressed: () {
-                      {
-                        signUp();
-                      }
-                    },
-                    child: const Text(
-                      '회원가입 완료',
-                      style: TextStyle(
-                        color: Colors.black,
-                        fontWeight: FontWeight.bold,
+                        Icons.lock,
                       ),
                     ),
-                  ),
-                ],
+                    SizedBox(
+                      height: (MediaQuery.sizeOf(context)).height / 7.5,
+                    ),
+                    SizedBox(
+                      width: (MediaQuery.sizeOf(context)).width / 1.25,
+                      height: (MediaQuery.sizeOf(context)).height / 13,
+                      child: ElevatedButton(
+                        onPressed: () {
+                          {
+                            signUp();
+                          }
+                        },
+                        child: const Text(
+                          '가입하기',
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 20,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ),
           ),
