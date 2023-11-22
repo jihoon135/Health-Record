@@ -11,19 +11,20 @@ class Text_Form_Field extends StatefulWidget {
   final void Function(String)? onChanged;
   final TextEditingController? controller;
   final String? errorText;
-  const Text_Form_Field({
-    super.key,
-    required this.labelText,
-    required this.hintText,
-    required this.obscureText,
-    required this.keyboardType,
-    required this.prefixIcon,
-    this.validator,
-    this.onSaved,
-    this.onChanged,
-    this.controller,
-    this.errorText,
-  });
+  final Widget suffixIcon;
+  const Text_Form_Field(
+      {super.key,
+      required this.labelText,
+      required this.hintText,
+      required this.obscureText,
+      required this.keyboardType,
+      required this.prefixIcon,
+      this.validator,
+      this.onSaved,
+      this.onChanged,
+      this.controller,
+      this.errorText,
+      required this.suffixIcon});
 
   @override
   _CustomTextFormFieldState createState() => _CustomTextFormFieldState();
@@ -46,23 +47,44 @@ class _CustomTextFormFieldState extends State<Text_Form_Field> {
         decoration: InputDecoration(
           errorText: widget.errorText,
           errorStyle: const TextStyle(
-            color: Colors.white, // 오류 메시지의 텍스트 색상
+            //validation 오류 텍스트
+            color: Color.fromARGB(255, 255, 178, 178),
+            fontSize: 16,
+          ),
+          focusedErrorBorder: OutlineInputBorder(
+            //Textformfield을 안눌렀을때 반응
+            borderSide: const BorderSide(
+              color: Colors.white,
+            ),
+            borderRadius: BorderRadius.circular(10),
           ),
           enabledBorder: OutlineInputBorder(
+            //Textformfield을 안눌렀을때 반응
             borderSide: const BorderSide(
               color: Colors.white,
             ),
             borderRadius: BorderRadius.circular(10),
           ),
           focusedBorder: OutlineInputBorder(
+            //TEXTFORMFIELD를 눌렀을때 반응
             borderSide: const BorderSide(
               color: Colors.white,
             ),
             borderRadius: BorderRadius.circular(10),
           ),
+          errorBorder: OutlineInputBorder(
+            //TEXTFORMFIELD를 눌렀을때 반응
+            borderSide: const BorderSide(
+              color: Colors.white,
+            ),
+            borderRadius: BorderRadius.circular(10),
+          ),
+          suffixIcon: widget.suffixIcon,
           fillColor: Colors.black,
           filled: true,
           labelText: widget.labelText,
+          labelStyle:
+              const TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
           prefixIcon: Align(
             widthFactor: 1.0,
             heightFactor: 1.0,
@@ -72,16 +94,6 @@ class _CustomTextFormFieldState extends State<Text_Form_Field> {
           hintStyle: const TextStyle(
             color: Colors.grey,
           ),
-          // suffixIcon: widget.controller.text.isEmpty
-          //     ? null
-          //     : IconButton(
-          //         icon: const Icon(Icons.clear, color: Colors.white),
-          //         onPressed: () {
-          //           setState(() {
-          //             widget.controller.clear();
-          //           });
-          //         },
-          //       ),
         ),
       ),
     );
