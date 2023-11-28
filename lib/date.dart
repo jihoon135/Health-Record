@@ -12,8 +12,8 @@ class Date extends StatefulWidget {
 
 class _DateState extends State<Date> {
   CalendarFormat _calendarFormat = CalendarFormat.month;
-  final DateTime _focusedDay = DateTime.now();
-  DateTime? _selectedDay;
+  DateTime _focusedDay = DateTime.now();
+  DateTime _selectedDay = DateTime.now();
   final TextEditingController _eventController = TextEditingController();
   Map<DateTime, List<dynamic>> _events = {};
 
@@ -55,42 +55,61 @@ class _DateState extends State<Date> {
   Widget build(BuildContext context) {
     return Center(
       child: SizedBox(
-        height: MediaQuery.of(context).size.height / 2,
+        height: MediaQuery.of(context).size.height * 0.65,
         child: Scaffold(
           body: SingleChildScrollView(
             child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                TableCalendar(
-                  calendarFormat: _calendarFormat,
-                  focusedDay: _focusedDay,
-                  firstDay: DateTime(2023), // 변경 가능
-                  lastDay: DateTime(2099), // 변경 가능
-                  onFormatChanged: (format) {
-                    setState(() {
-                      _calendarFormat = format;
-                    });
-                  },
-                  onDaySelected: (selectedDay, focusedDay) {
-                    setState(() {
-                      _selectedDay = DateTime(
-                          selectedDay.year, selectedDay.month, selectedDay.day);
-                    });
-                    _showAddDialog();
-                  },
-                  eventLoader: (day) {
-                    return _events[day] ?? [];
-                  },
-                ),
-                if (_selectedDay != null && _events[_selectedDay] != null)
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      ..._events[_selectedDay]!.map((event) => ListTile(
-                            title: Text(event),
-                          )),
-                    ],
+                Container(
+                  height: MediaQuery.of(context).size.height * 1,
+                  color: Colors.grey[800],
+                  child: TableCalendar(
+                    headerStyle: const HeaderStyle(
+                      titleTextStyle:
+                          TextStyle(color: Colors.white, fontSize: 20),
+                    ),
+                    calendarFormat: _calendarFormat,
+                    focusedDay: _focusedDay,
+                    firstDay: DateTime(2023),
+                    lastDay: DateTime(2099),
+                    // 선택한 날짜에 마커 표시
+                    selectedDayPredicate: (day) {
+                      return isSameDay(_selectedDay, day);
+                    },
+                    calendarStyle: const CalendarStyle(
+                      defaultTextStyle: TextStyle(color: Colors.white),
+                      weekendTextStyle: TextStyle(color: Colors.red),
+                      holidayTextStyle: TextStyle(color: Colors.green),
+                      // 선택한 날짜에 동그라미 마커 색상 변경
+                      selectedDecoration: BoxDecoration(
+                        color: Colors.pink,
+                        shape: BoxShape.circle,
+                      ),
+                      // 이벤트 마커 색상 변경
+                      markerDecoration: BoxDecoration(
+                        color: Colors.white,
+                        shape: BoxShape.circle,
+                      ),
+                    ),
+                    onFormatChanged: (format) {
+                      setState(() {
+                        _calendarFormat = format;
+                      });
+                    },
+                    onDaySelected: (selectedDay, focusedDay) {
+                      setState(() {
+                        _selectedDay = selectedDay;
+                        _focusedDay = focusedDay;
+                        _eventController.text =
+                            _events[_selectedDay]?.join('') ?? '';
+                      });
+                      _showAddDialog();
+                    },
+                    eventLoader: (day) {
+                      return _events[day] ?? [];
+                    },
                   ),
+                ),
               ],
             ),
           ),
@@ -103,10 +122,10 @@ class _DateState extends State<Date> {
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        title: const Text('일정 추가'),
+        title: const Text('헬스 기록'),
         content: TextField(
           controller: _eventController,
-          decoration: const InputDecoration(labelText: '일정 내용'),
+          decoration: const InputDecoration(labelText: '내용'),
         ),
         actions: [
           TextButton(
@@ -117,26 +136,18 @@ class _DateState extends State<Date> {
           ),
           TextButton(
             onPressed: () async {
-              // 함수를 비동기로 변경
-              if (_eventController.text.isNotEmpty && _selectedDay != null) {
+              if (_eventController.text.isNotEmpty) {
                 setState(() {
-                  _events[_selectedDay!] ??= [];
-                  _events[_selectedDay!]!.add(_eventController.text);
-                  _eventController.clear();
+                  _events[_selectedDay] = _eventController.text.split('');
                 });
-                await _saveEvents(); // 일정 추가 후 _saveEvents() 호출
+                await _saveEvents();
               }
               Navigator.pop(context);
             },
-            child: const Text('추가'),
+            child: const Text('저장'),
           ),
         ],
       ),
     );
   }
 }
-
-
-// 1. 새로운 입력을 받으면 그 입력값으로 갱신 되도록 해야겠고
-// 2. 달력에 이벤트를 좀 넣을 수 있으면 좋겠다.. 
-// 3. 달력 테마 다른거 있나? 찾아보기(어두운색)

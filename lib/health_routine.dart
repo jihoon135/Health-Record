@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:health_record/routine_option.dart';
 
 class Health_Routine extends StatefulWidget {
-  final List<String> cartItems1;
+  final List<List<String>> cartItems1;
   const Health_Routine({super.key, required this.cartItems1});
 
   @override
@@ -10,12 +10,12 @@ class Health_Routine extends StatefulWidget {
 }
 
 class _Health_RoutineState extends State<Health_Routine> {
-  late List<String> cartItems;
+  late List<List<String>> cartItems;
 
   @override
   void initState() {
     super.initState();
-    cartItems = List.from(widget.cartItems1); // 가변 리스트 변환
+    cartItems = List.generate(5, (index) => []); // 가변 리스트 변환
   }
 
   @override
@@ -36,7 +36,20 @@ class _Health_RoutineState extends State<Health_Routine> {
                 color: Colors.pink[200],
               ),
               child: ListTile(
-                title: Text('루틴 ${index + 1}'),
+                title: SingleChildScrollView(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        '루틴 ${index + 1}',
+                        style:
+                            const TextStyle(fontSize: 20, color: Colors.white),
+                      ),
+                      ...cartItems[index].map((item) =>
+                          Text(item)), // cartItems의 각 항목에 대한 텍스트 위젯 생성
+                    ],
+                  ),
+                ),
                 trailing: Row(
                   mainAxisSize: MainAxisSize.min,
                   children: <Widget>[
@@ -44,15 +57,16 @@ class _Health_RoutineState extends State<Health_Routine> {
                       icon: const Icon(Icons.add),
                       onPressed: () {
                         Navigator.push(
-                          //push named로 한번 바꿔보자
                           context,
                           MaterialPageRoute(
-                            builder: (context) => const Routine_Option(),
+                            builder: (context) => Routine_Option(
+                                containerIndex: index,
+                                cartItems1: cartItems[index]),
                           ),
                         ).then((result) {
                           if (result != null && result is List<String>) {
                             setState(() {
-                              cartItems.addAll(result);
+                              cartItems[index] = result;
                             });
                           }
                         });
@@ -62,7 +76,7 @@ class _Health_RoutineState extends State<Health_Routine> {
                       icon: const Icon(Icons.remove),
                       onPressed: () {
                         setState(() {
-                          cartItems.clear(); //지우기
+                          cartItems[index].clear(); //지우기
                         });
                       },
                     ),
@@ -76,5 +90,3 @@ class _Health_RoutineState extends State<Health_Routine> {
     );
   }
 }
-
-// 컨테이너에 텍스트 받아오기

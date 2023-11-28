@@ -39,13 +39,13 @@ class _Home_ScreenState extends State<Home_Screen> {
               ),
             ],
           ),
-          body: TabBarView(
+          body: const TabBarView(
             children: [
-              const Search_Map(),
+              Search_Map(),
               Health_Routine(
-                cartItems1: const [],
+                cartItems1: [],
               ),
-              const Date()
+              Date()
             ],
           ),
           extendBodyBehindAppBar: true, // add this line

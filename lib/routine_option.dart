@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:health_record/health_routine.dart';
 
-void main() {
-  runApp(const Routine_Option());
-}
-
 class Routine_Option extends StatefulWidget {
-  const Routine_Option({super.key});
+  final int containerIndex;
+  final List<String> cartItems1;
+  const Routine_Option(
+      {super.key, required this.containerIndex, required this.cartItems1});
 
   @override
   State<Routine_Option> createState() => _Routine_OptionState();
@@ -40,7 +39,13 @@ class _Routine_OptionState extends State<Routine_Option> {
     '레그 컬',
   ];
 
-  List<String> cartItems = []; //장바구니 정보임
+  late List<String> cartItems;
+
+  @override
+  void initState() {
+    super.initState();
+    cartItems = List.from(widget.cartItems1); // 가변 리스트 변환
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -56,7 +61,6 @@ class _Routine_OptionState extends State<Routine_Option> {
                   return GestureDetector(
                     onTap: () {
                       setState(() {
-// 장바구니 추가, 제거
                         if (cartItems.contains(health_list[index])) {
                           cartItems.remove(health_list[index]);
                         } else {
@@ -70,7 +74,6 @@ class _Routine_OptionState extends State<Routine_Option> {
                         color: Color.fromRGBO(150, 110, 13, 100),
                       ),
                       title: Text(health_list[index]),
-// 선택된 항목 강조
                       tileColor: cartItems.contains(health_list[index])
                           ? Colors.grey.withOpacity(0.3)
                           : null,
@@ -81,11 +84,7 @@ class _Routine_OptionState extends State<Routine_Option> {
         ),
         floatingActionButton: FloatingActionButton(
           onPressed: () {
-            Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (context) =>
-                        Health_Routine(cartItems1: cartItems)));
+            Navigator.pop(context, cartItems);
           },
           child: const Icon(Icons.shopping_cart),
         ),
