@@ -27,7 +27,7 @@ class _Health_RoutineState extends State<Health_Routine> {
         itemCount: 5,
         itemBuilder: (context, index) {
           return Padding(
-            padding: const EdgeInsets.all(8.0),
+            padding: const EdgeInsets.all(10.0),
             child: Container(
               width: size.width * 0.9,
               height: size.height * 0.2,
@@ -36,18 +36,21 @@ class _Health_RoutineState extends State<Health_Routine> {
                 color: Colors.pink[200],
               ),
               child: ListTile(
-                title: SingleChildScrollView(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        '루틴 ${index + 1}',
-                        style:
-                            const TextStyle(fontSize: 20, color: Colors.white),
-                      ),
-                      ...cartItems[index].map((item) =>
-                          Text(item)), // cartItems의 각 항목에 대한 텍스트 위젯 생성
-                    ],
+                title: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: SingleChildScrollView(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          'Routine ${index + 1}',
+                          style: const TextStyle(
+                              fontSize: 20, color: Colors.white),
+                        ),
+                        ...cartItems[index].map((item) =>
+                            Text(item)), // cartItems의 각 항목에 대한 텍스트 위젯 생성
+                      ],
+                    ),
                   ),
                 ),
                 trailing: Row(

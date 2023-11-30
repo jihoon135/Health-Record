@@ -44,7 +44,7 @@ class _Routine_OptionState extends State<Routine_Option> {
   @override
   void initState() {
     super.initState();
-    cartItems = List.from(widget.cartItems1); // 가변 리스트 변환
+    cartItems = List.from(widget.cartItems1);
   }
 
   @override
@@ -59,14 +59,18 @@ class _Routine_OptionState extends State<Routine_Option> {
                 itemCount: health_list.length,
                 itemBuilder: (context, index) {
                   return GestureDetector(
-                    onTap: () {
-                      setState(() {
-                        if (cartItems.contains(health_list[index])) {
-                          cartItems.remove(health_list[index]);
-                        } else {
-                          cartItems.add(health_list[index]);
-                        }
-                      });
+                    onTap: () async {
+                      String? setCount = await _showSetCountDialog();
+                      if (setCount != null) {
+                        setState(() {
+                          String item = '${health_list[index]}: $setCount 세트';
+                          if (cartItems.contains(item)) {
+                            cartItems.remove(item);
+                          } else {
+                            cartItems.add(item);
+                          }
+                        });
+                      }
                     },
                     child: ListTile(
                       leading: const Icon(
@@ -74,7 +78,8 @@ class _Routine_OptionState extends State<Routine_Option> {
                         color: Color.fromRGBO(150, 110, 13, 100),
                       ),
                       title: Text(health_list[index]),
-                      tileColor: cartItems.contains(health_list[index])
+                      tileColor: cartItems.any(
+                              (item) => item.startsWith(health_list[index]))
                           ? Colors.grey.withOpacity(0.3)
                           : null,
                     ),
@@ -90,5 +95,32 @@ class _Routine_OptionState extends State<Routine_Option> {
         ),
       ),
     );
+  }
+
+  Future<String?> _showSetCountDialog() async {
+    String? setCount;
+    await showDialog<String>(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('세트 수 입력'),
+          content: TextField(
+            keyboardType: TextInputType.number,
+            onChanged: (value) {
+              setCount = value;
+            },
+          ),
+          actions: <Widget>[
+            TextButton(
+              child: const Text('확인'),
+              onPressed: () {
+                Navigator.pop(context);
+              },
+            ),
+          ],
+        );
+      },
+    );
+    return setCount;
   }
 }
