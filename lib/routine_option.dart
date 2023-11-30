@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:health_record/health_routine.dart';
 
 class Routine_Option extends StatefulWidget {
   final int containerIndex;
@@ -60,10 +59,12 @@ class _Routine_OptionState extends State<Routine_Option> {
                 itemBuilder: (context, index) {
                   return GestureDetector(
                     onTap: () async {
-                      String? setCount = await _showSetCountDialog();
-                      if (setCount != null) {
+                      Map<String, String>? result =
+                          await _showSetAndWeightDialog();
+                      if (result != null) {
                         setState(() {
-                          String item = '${health_list[index]}: $setCount 세트';
+                          String item =
+                              '${health_list[index]}: ${result['setCount']} 세트, ${result['weight']} kg';
                           if (cartItems.contains(item)) {
                             cartItems.remove(item);
                           } else {
@@ -97,18 +98,31 @@ class _Routine_OptionState extends State<Routine_Option> {
     );
   }
 
-  Future<String?> _showSetCountDialog() async {
+  Future<Map<String, String>?> _showSetAndWeightDialog() async {
     String? setCount;
+    String? weight;
     await showDialog<String>(
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: const Text('세트 수 입력'),
-          content: TextField(
-            keyboardType: TextInputType.number,
-            onChanged: (value) {
-              setCount = value;
-            },
+          title: const Text('세트 수와 무게를 입력하세요'),
+          content: Column(
+            children: <Widget>[
+              TextField(
+                keyboardType: TextInputType.number,
+                decoration: const InputDecoration(hintText: '세트 수'),
+                onChanged: (value) {
+                  setCount = value;
+                },
+              ),
+              TextField(
+                keyboardType: TextInputType.number,
+                decoration: const InputDecoration(hintText: '무게 (kg)'),
+                onChanged: (value) {
+                  weight = value;
+                },
+              ),
+            ],
           ),
           actions: <Widget>[
             TextButton(
@@ -121,6 +135,6 @@ class _Routine_OptionState extends State<Routine_Option> {
         );
       },
     );
-    return setCount;
+    return {'setCount': setCount ?? '', 'weight': weight ?? ''};
   }
 }
