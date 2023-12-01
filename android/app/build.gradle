@@ -1,9 +1,25 @@
+buildscript {
+    repositories {
+        google()
+        mavenCentral()
+    }
+
+    dependencies {
+        classpath 'com.android.tools.build:gradle:7.1.2'
+        classpath 'org.jetbrains.kotlin:kotlin-gradle-plugin:1.6.0'
+
+    }
+}
+
 plugins {
-    id "com.android.application"
     id "kotlin-android"
+    id "com.android.application"
     id "dev.flutter.flutter-gradle-plugin"
 
 }
+
+
+
 
 def localProperties = new Properties()
 def localPropertiesFile = rootProject.file('local.properties')
