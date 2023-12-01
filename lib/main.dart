@@ -10,6 +10,7 @@ import 'package:health_record/info.dart';
 import 'package:health_record/login.dart';
 import 'package:health_record/join.dart';
 import 'package:health_record/search_map.dart';
+import 'package:flutter_native_splash/flutter_native_splash.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -23,6 +24,7 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   ); //위와 동일
+
   runApp(const Route_management());
 }
 

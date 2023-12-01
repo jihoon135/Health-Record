@@ -70,10 +70,10 @@
 		<true/>
 		<key>NSLocationTemporaryUsageDescriptionDictionary</key>
 		<dict>
-  			<key>YourPurposeKey1</key>
-  			<string>The example App requires temporary access to the device&apos;s precise location.</string>
-  			<key>YourPurposeKey2</key>
-  			<string>The example App requires temporary access to the device&apos;s precise location.</string>
+			<key>YourPurposeKey1</key>
+			<string>The example App requires temporary access to the device's precise location.</string>
+			<key>YourPurposeKey2</key>
+			<string>The example App requires temporary access to the device's precise location.</string>
 		</dict>
 	</dict>
 </plist>

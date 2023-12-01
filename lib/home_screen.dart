@@ -40,11 +40,12 @@ class _Home_ScreenState extends State<Home_Screen> {
             ],
           ),
           body: TabBarView(
+            physics: const NeverScrollableScrollPhysics(),
             children: [
-              const Search_Map(),
               Health_Routine(
                 cartItems1: const [],
               ),
+              const Search_Map(),
               const Date()
             ],
           ),
@@ -66,14 +67,14 @@ class _Home_ScreenState extends State<Home_Screen> {
                 ),
                 tabs: [
                   Tab(
+                    icon: Icon(Icons.favorite),
+                    text: '운동 루틴',
+                  ),
+                  Tab(
                     icon: Icon(
                       Icons.search,
                     ),
                     text: '헬스장 검색하기',
-                  ),
-                  Tab(
-                    icon: Icon(Icons.favorite),
-                    text: '운동 루틴',
                   ),
                   Tab(
                     icon: Icon(

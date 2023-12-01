@@ -3,7 +3,6 @@ import 'dart:developer' show log;
 import 'package:flutter/material.dart';
 import 'package:flutter_naver_map/flutter_naver_map.dart';
 import 'package:geolocator/geolocator.dart';
-import 'package:location/location.dart';
 
 class Search_Map extends StatefulWidget {
   const Search_Map({super.key});
@@ -13,73 +12,99 @@ class Search_Map extends StatefulWidget {
 }
 
 class TestPageState extends State<Search_Map> {
-  Completer<NaverMapController> _mapController =
-      Completer<NaverMapController>();
-
-  final Completer<NaverMapController> mapControllerCompleter = Completer();
+  String? latitude;
+  String? longitude;
 
   ///위치 권한 허용 여부 묻기
-  getGeoData() async {
-    // 위치 권한 요청
-    Location location = Location();
+
+  /// Determine the current position of the device.
+  ///
+  /// When the location services are not enabled or permissions
+  /// are denied the `Future` will return an error.
+  Future<Position> _determinePosition() async {
     bool serviceEnabled;
-    PermissionStatus permissionGranted;
-    LocationData locationData;
-    serviceEnabled = await location.serviceEnabled();
-    if (!serviceEnabled) {
-      serviceEnabled = await location.requestService();
-      if (!serviceEnabled) {
-        return Future.error('현재 위치 권한이 없습니다');
+    LocationPermission permission;
+
+    // Test if location services are enabled.
+
+    permission = await Geolocator.checkPermission();
+    if (permission == LocationPermission.denied) {
+      permission = await Geolocator.requestPermission();
+      if (permission == LocationPermission.denied) {
+        // Permissions are denied, next time you could try
+        // requesting permissions again (this is also where
+        // Android's shouldShowRequestPermissionRationale
+        // returned true. According to Android guidelines
+        // your App should show an explanatory UI now.
+        return Future.error('Location permissions are denied');
       }
     }
-    permissionGranted = await location.hasPermission();
-    if (permissionGranted == PermissionStatus.denied) {
-      permissionGranted = await location.requestPermission();
-      if (permissionGranted != PermissionStatus.granted) {
-        return Future.error('위치 권한이 거부 상태입니다.');
-      }
+
+    if (permission == LocationPermission.deniedForever) {
+      // Permissions are denied forever, handle appropriately.
+      return Future.error(
+          'Location permissions are permanently denied, we cannot request permissions.');
     }
-    locationData = await location.getLocation();
+
+    // When we reach here, permissions are granted and we can
+    // continue accessing the position of the device.
+    return await Geolocator.getCurrentPosition();
   }
 
   @override
   void initState() {
     super.initState();
-    getGeoData();
+    _determinePosition();
   }
 
   @override
   Widget build(BuildContext context) {
     // 현재 화면의 크기 및 픽셀 비율을 계산합니다.
-    final mediaQuery = MediaQuery.of(context);
-    final pixelRatio = mediaQuery.devicePixelRatio;
-    final mapSize =
-        Size(mediaQuery.size.width - 32, mediaQuery.size.height - 72);
-    final physicalSize =
-        Size(mapSize.width * pixelRatio, mapSize.height * pixelRatio);
-
-    print("physicalSize: $physicalSize");
-
     return Scaffold(
       backgroundColor: const Color(0xFF343945),
       body: Center(
-        child: SizedBox(
-          width: mapSize.width,
-          height: mapSize.height,
-          child: NaverMap(
-            // 네이버 지도의 옵션을 설정합니다.
-            options: const NaverMapViewOptions(
-              indoorEnable: true, // 실내 지도 활성화 여부
-              locationButtonEnable: true, // 현재 위치 버튼 활성화 여부
-              consumeSymbolTapEvents: true, // 심볼 탭 이벤트 소비 여부
-            ),
-            // 지도가 준비되면 호출되는 콜백 함수입니다.
-            onMapReady: (controller) async {
-              _mapController = controller as Completer<NaverMapController>;
-              mapControllerCompleter.complete(controller);
-              log("onMapReady", name: "onMapReady");
-            },
+        child: NaverMap(
+          // 네이버 지도의 옵션을 설정합니다.
+          options: const NaverMapViewOptions(
+            indoorEnable: true, // 실내 지도 활성화 여부
+            locationButtonEnable: true, // 현재 위치 버튼 활성화 여부
+            consumeSymbolTapEvents: true, // 심볼 탭 이벤트 소비 여부
           ),
+
+          ///지도 생성과 함께 실행되는 코드 지정 가능
+          onMapReady: (controller) {
+            final marker = NMarker(
+              //마커 데이터 저장
+              id: 'test',
+              position: const NLatLng(
+                36.335778216981815,
+                127.45637008651588,
+              ),
+            ); //위도와 경도 이용
+            final marker1 = NMarker(
+              id: 'test1',
+              position: const NLatLng(
+                36.33648253730799,
+                127.45363416274779,
+              ),
+            );
+
+            controller.addOverlayAll(
+              {
+                marker,
+                marker1,
+              },
+            ); //마커 한 번에 복수 생성
+
+            ///마커에 정보 띄우기
+            final onMarkerInfoWindow =
+                NInfoWindow.onMarker(id: marker.info.id, text: "드림캐슬");
+            final onMarkerInfoWindow2 =
+                NInfoWindow.onMarker(id: marker1.info.id, text: "우송대학교");
+            marker.openInfoWindow(onMarkerInfoWindow);
+            marker1.openInfoWindow(onMarkerInfoWindow2);
+          },
+          // 지도가 준비되면 호출되는 콜백 함수입니다.
         ),
       ),
     );
