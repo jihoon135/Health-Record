@@ -64,7 +64,7 @@ class _Routine_OptionState extends State<Routine_Option> {
                       if (result != null) {
                         setState(() {
                           String item =
-                              '${health_list[index]}: ${result['setCount']} 세트, ${result['weight']} kg';
+                              '${health_list[index]}: ${result['setCount']}set, ${result['weight']}kg';
                           if (cartItems.contains(item)) {
                             cartItems.remove(item);
                           } else {
