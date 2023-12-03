@@ -52,6 +52,7 @@ dependencies:
   rive: ^0.12.3
   dio: ^5.3.3
   flutter_config: ^2.0.2
+  shared_preferences: ^2.0.8
   flutter_naver_map: ^1.0.2
   baseflow_plugin_template: ^2.1.2
   location: ^5.0.3
