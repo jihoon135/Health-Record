@@ -23,6 +23,7 @@ class _Health_RoutineState extends State<Health_Routine> {
     var size = MediaQuery.of(context).size;
 
     return Scaffold(
+      backgroundColor: Colors.black,
       body: ListView.builder(
         itemCount: 5,
         itemBuilder: (context, index) {
@@ -33,7 +34,7 @@ class _Health_RoutineState extends State<Health_Routine> {
               height: size.height * 0.2,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(10.0),
-                color: Colors.pink[200],
+                color: const Color.fromARGB(255, 85, 85, 85),
               ),
               child: ListTile(
                 title: Padding(
@@ -47,8 +48,11 @@ class _Health_RoutineState extends State<Health_Routine> {
                           style: const TextStyle(
                               fontSize: 20, color: Colors.white),
                         ),
-                        ...cartItems[index].map((item) =>
-                            Text(item)), // cartItems의 각 항목에 대한 텍스트 위젯 생성
+                        ...cartItems[index].map((item) => Text(
+                              item,
+                              style: const TextStyle(
+                                  color: Color.fromARGB(255, 195, 194, 194)),
+                            )), // cartItems의 각 항목에 대한 텍스트 위젯 생성
                       ],
                     ),
                   ),
@@ -57,7 +61,7 @@ class _Health_RoutineState extends State<Health_Routine> {
                   mainAxisSize: MainAxisSize.min,
                   children: <Widget>[
                     IconButton(
-                      icon: const Icon(Icons.add),
+                      icon: const Icon(Icons.add, color: Colors.white),
                       onPressed: () {
                         Navigator.push(
                           context,
@@ -76,7 +80,10 @@ class _Health_RoutineState extends State<Health_Routine> {
                       },
                     ),
                     IconButton(
-                      icon: const Icon(Icons.remove),
+                      icon: const Icon(
+                        Icons.remove,
+                        color: Colors.white,
+                      ),
                       onPressed: () {
                         setState(() {
                           cartItems[index].clear(); //지우기

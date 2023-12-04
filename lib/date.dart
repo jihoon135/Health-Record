@@ -55,63 +55,61 @@ class _DateState extends State<Date> {
   Widget build(BuildContext context) {
     return Center(
       child: SizedBox(
-        height: MediaQuery.of(context).size.height * 0.65,
+        height: MediaQuery.of(context).size.height * 0.7,
         child: Scaffold(
-          body: SingleChildScrollView(
-            child: Column(
-              children: [
-                Container(
-                  height: MediaQuery.of(context).size.height * 1,
-                  color: Colors.grey[800],
-                  child: TableCalendar(
-                    headerStyle: const HeaderStyle(
-                      titleTextStyle:
-                          TextStyle(color: Colors.white, fontSize: 20),
-                    ),
-                    calendarFormat: _calendarFormat,
-                    focusedDay: _focusedDay,
-                    firstDay: DateTime(2023),
-                    lastDay: DateTime(2099),
-                    // 선택한 날짜에 마커 표시
-                    selectedDayPredicate: (day) {
-                      return isSameDay(_selectedDay, day);
-                    },
-                    calendarStyle: const CalendarStyle(
-                      defaultTextStyle: TextStyle(color: Colors.white),
-                      weekendTextStyle: TextStyle(color: Colors.red),
-                      holidayTextStyle: TextStyle(color: Colors.green),
-                      // 선택한 날짜에 동그라미 마커 색상 변경
-                      selectedDecoration: BoxDecoration(
-                        color: Colors.pink,
-                        shape: BoxShape.circle,
-                      ),
-                      // 이벤트 마커 색상 변경
-                      markerDecoration: BoxDecoration(
-                        color: Colors.white,
-                        shape: BoxShape.circle,
-                      ),
-                    ),
-                    onFormatChanged: (format) {
-                      setState(() {
-                        _calendarFormat = format;
-                      });
-                    },
-                    onDaySelected: (selectedDay, focusedDay) {
-                      setState(() {
-                        _selectedDay = selectedDay;
-                        _focusedDay = focusedDay;
-                        _eventController.text =
-                            _events[_selectedDay]?.join('') ?? '';
-                      });
-                      _showAddDialog();
-                    },
-                    eventLoader: (day) {
-                      return _events[day] ?? [];
-                    },
+          backgroundColor: Colors.grey[800],
+          body: Column(
+            children: [
+              Container(
+                color: Colors.grey[800],
+                child: TableCalendar(
+                  headerStyle: const HeaderStyle(
+                    titleTextStyle:
+                        TextStyle(color: Colors.white, fontSize: 20),
                   ),
+                  calendarFormat: _calendarFormat,
+                  focusedDay: _focusedDay,
+                  firstDay: DateTime(2023),
+                  lastDay: DateTime(2099),
+                  // 선택한 날짜에 마커 표시
+                  selectedDayPredicate: (day) {
+                    return isSameDay(_selectedDay, day);
+                  },
+                  calendarStyle: const CalendarStyle(
+                    defaultTextStyle: TextStyle(color: Colors.white),
+                    weekendTextStyle: TextStyle(color: Colors.red),
+                    holidayTextStyle: TextStyle(color: Colors.green),
+                    // 선택한 날짜에 동그라미 마커 색상 변경
+                    selectedDecoration: BoxDecoration(
+                      color: Colors.pink,
+                      shape: BoxShape.circle,
+                    ),
+                    // 이벤트 마커 색상 변경
+                    markerDecoration: BoxDecoration(
+                      color: Colors.white,
+                      shape: BoxShape.circle,
+                    ),
+                  ),
+                  onFormatChanged: (format) {
+                    setState(() {
+                      _calendarFormat = format;
+                    });
+                  },
+                  onDaySelected: (selectedDay, focusedDay) {
+                    setState(() {
+                      _selectedDay = selectedDay;
+                      _focusedDay = focusedDay;
+                      _eventController.text =
+                          _events[_selectedDay]?.join('') ?? '';
+                    });
+                    _showAddDialog();
+                  },
+                  eventLoader: (day) {
+                    return _events[day] ?? [];
+                  },
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
         ),
       ),

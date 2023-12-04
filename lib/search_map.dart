@@ -21,7 +21,7 @@ class TestPageState extends State<Search_Map> {
   ///
   /// When the location services are not enabled or permissions
   /// are denied the `Future` will return an error.
-  Future<Position> _determinePosition() async {
+  geoGeoData() async {
     bool serviceEnabled;
     LocationPermission permission;
 
@@ -31,30 +31,15 @@ class TestPageState extends State<Search_Map> {
     if (permission == LocationPermission.denied) {
       permission = await Geolocator.requestPermission();
       if (permission == LocationPermission.denied) {
-        // Permissions are denied, next time you could try
-        // requesting permissions again (this is also where
-        // Android's shouldShowRequestPermissionRationale
-        // returned true. According to Android guidelines
-        // your App should show an explanatory UI now.
         return Future.error('Location permissions are denied');
       }
     }
-
-    if (permission == LocationPermission.deniedForever) {
-      // Permissions are denied forever, handle appropriately.
-      return Future.error(
-          'Location permissions are permanently denied, we cannot request permissions.');
-    }
-
-    // When we reach here, permissions are granted and we can
-    // continue accessing the position of the device.
-    return await Geolocator.getCurrentPosition();
   }
 
   @override
   void initState() {
     super.initState();
-    _determinePosition();
+    geoGeoData();
   }
 
   @override
@@ -68,24 +53,40 @@ class TestPageState extends State<Search_Map> {
           options: const NaverMapViewOptions(
             indoorEnable: true, // 실내 지도 활성화 여부
             locationButtonEnable: true, // 현재 위치 버튼 활성화 여부
+
             consumeSymbolTapEvents: true, // 심볼 탭 이벤트 소비 여부
           ),
 
           ///지도 생성과 함께 실행되는 코드 지정 가능
-          onMapReady: (controller) {
+          onMapReady: (controller) async {
+            await geoGeoData();
             final marker = NMarker(
               //마커 데이터 저장
-              id: 'test',
+              id: 'D-GYM',
               position: const NLatLng(
-                36.335778216981815,
-                127.45637008651588,
+                36.336078821642694,
+                127.46023125536593,
               ),
             ); //위도와 경도 이용
             final marker1 = NMarker(
-              id: 'test1',
+              id: '덕림',
               position: const NLatLng(
-                36.33648253730799,
-                127.45363416274779,
+                36.328310698565,
+                127.45434133230944,
+              ),
+            );
+            final marker2 = NMarker(
+              id: '피트니스1번지 대전대점',
+              position: const NLatLng(
+                36.331050334912774,
+                127.46138226010666,
+              ),
+            );
+            final marker3 = NMarker(
+              id: '페르소나 헬스&PT 용운점',
+              position: const NLatLng(
+                36.327343242697765,
+                127.45161827720767,
               ),
             );
 
@@ -93,16 +94,23 @@ class TestPageState extends State<Search_Map> {
               {
                 marker,
                 marker1,
+                marker2,
+                marker3,
               },
             ); //마커 한 번에 복수 생성
-
             ///마커에 정보 띄우기
             final onMarkerInfoWindow =
-                NInfoWindow.onMarker(id: marker.info.id, text: "드림캐슬");
+                NInfoWindow.onMarker(id: marker.info.id, text: "D-GYM");
             final onMarkerInfoWindow2 =
-                NInfoWindow.onMarker(id: marker1.info.id, text: "우송대학교");
+                NInfoWindow.onMarker(id: marker1.info.id, text: "덕림헬스");
+            final onMarkerInfoWindow3 =
+                NInfoWindow.onMarker(id: marker2.info.id, text: "피트니스1번지 대전대점");
+            final onMarkerInfoWindow4 = NInfoWindow.onMarker(
+                id: marker3.info.id, text: "페르소나 헬스&PT 용운점");
             marker.openInfoWindow(onMarkerInfoWindow);
             marker1.openInfoWindow(onMarkerInfoWindow2);
+            marker2.openInfoWindow(onMarkerInfoWindow3);
+            marker3.openInfoWindow(onMarkerInfoWindow4);
           },
           // 지도가 준비되면 호출되는 콜백 함수입니다.
         ),

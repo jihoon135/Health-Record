@@ -51,6 +51,7 @@ class _Routine_OptionState extends State<Routine_Option> {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
+        backgroundColor: const Color.fromARGB(31, 74, 74, 74),
         body: Center(
           child: SizedBox(
             width: 500,
@@ -75,10 +76,15 @@ class _Routine_OptionState extends State<Routine_Option> {
                     },
                     child: ListTile(
                       leading: const Icon(
-                        Icons.mail,
-                        color: Color.fromRGBO(150, 110, 13, 100),
+                        Icons.person,
+                        color: Colors.white,
                       ),
-                      title: Text(health_list[index]),
+                      title: Text(
+                        health_list[index],
+                        style: const TextStyle(
+                          color: Colors.white,
+                        ),
+                      ),
                       tileColor: cartItems.any(
                               (item) => item.startsWith(health_list[index]))
                           ? Colors.grey.withOpacity(0.3)

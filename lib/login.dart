@@ -19,7 +19,7 @@ class login_state extends State<login> {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
-
+  bool isPasswordVisible = false;
   @override
   void initState() {
     super.initState();
@@ -86,7 +86,7 @@ class login_state extends State<login> {
                 controller: passwordController,
                 labelText: '비밀번호',
                 hintText: '비밀번호를 입력해주세요',
-                obscureText: true,
+                obscureText: !isPasswordVisible,
                 keyboardType: TextInputType.text,
                 prefixIcon: const Icon(
                   Icons.lock,
@@ -94,10 +94,12 @@ class login_state extends State<login> {
                 ),
                 suffixIcon: GestureDetector(
                   onTap: () {
-                    passwordController.clear();
+                    setState(() {
+                      isPasswordVisible = !isPasswordVisible;
+                    });
                   },
                   child: Icon(
-                    Icons.clear,
+                    isPasswordVisible ? Icons.visibility : Icons.visibility_off,
                     color: passwordController.text.isEmpty
                         ? Colors.grey
                         : const Color.fromARGB(255, 255, 255, 255),
