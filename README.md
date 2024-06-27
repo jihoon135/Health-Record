@@ -14,12 +14,11 @@ A few resources to get you started if this is your first Flutter project:
 For help getting started with Flutter development, view the
 [online documentation](https://docs.flutter.dev/), which offers tutorials,
 samples, guidance on mobile development, and a full API reference.
-![미디어1](https://github.com/jihoon135/Health-Record/assets/100752796/566a3190-71eb-499f-ba10-3aa56c1f6d72)
 
 ## 📱 APP Screenshot & Description
 <table>
   <tr>
-    <td valign="top"><img src="./assets/readme_images/RESQ_gif.gif" alt="RESQ_fig" width="300" height="600"></td>
+    <td valign="top"><img src="./images/Demo.gif" alt="RESQ_fig" width="300" height="600"></td>
     <td valign="top">
       <h4><ul>
         <li>The app activates a map based on the user's current location.</li><br><br>
