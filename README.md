@@ -14,3 +14,4 @@ A few resources to get you started if this is your first Flutter project:
 For help getting started with Flutter development, view the
 [online documentation](https://docs.flutter.dev/), which offers tutorials,
 samples, guidance on mobile development, and a full API reference.
+![미디어1](https://github.com/jihoon135/Health-Record/assets/100752796/566a3190-71eb-499f-ba10-3aa56c1f6d72)
