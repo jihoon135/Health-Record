@@ -11,7 +11,10 @@
 ## How to Run
 * 빌드를 위해, API KEY가 필요합니다.
   *  /lib/main.dart의 `naver_api_key` 코드를 발급 받은 API 키로 바꿔주세요.
-```await NaverMapSdk.instance.initialize(clientId: dotenv.env['naver_api_key']); //Line no.20, please insert the Google Map API key here```
+```dart
+await NaverMapSdk.instance.initialize(clientId: dotenv.env['naver_api_key']); 
+//Line no.20, please insert the Google Map API key here
+```
 
 * /lib/main.dart에서 Run Code를 진행 해주세요.
 
